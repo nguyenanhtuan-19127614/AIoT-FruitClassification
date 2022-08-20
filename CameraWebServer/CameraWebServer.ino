@@ -75,32 +75,9 @@ void setup() {
   //drop down frame size for higher initial frame rate
   sensor_t * s = esp_camera_sensor_get();
   s->set_framesize(s, FRAMESIZE_240X240);
-   
-
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
-
-  startCameraServer();
-
-  Serial.print("Camera Ready! Use 'http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("' to connect, the stream is on a different port channel 9601 ");
- Serial.print("stream Ready! Use 'http://");
-  Serial.print(WiFi.localIP());
-  Serial.println(":9601/stream ");
-   Serial.print("image Ready! Use 'http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("/capture ");
-  
 }
-
+extern static esp_err_t inference_handler();
 void loop() {
-  // put your main code here, to run repeatedly:
-  delay(10000);
+  inference_handler();
+  delay(1000);
 }
