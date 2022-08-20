@@ -1,8 +1,9 @@
+#include <a19127632_human_face_detection_inferencing.h>
+
 #include "esp_timer.h"
 #include "esp_camera.h"
 // #include "img_converters.h"
 // #include "image_util.h"
-#include "camera_index.h"
 //#include "camera_index_html.h"
 #include "Arduino.h"
 
@@ -79,7 +80,7 @@ void classify()
 #endif
 }
 
-static esp_err_t inference_handler()
+esp_err_t inference_handler()
 {
   camera_fb_t *fb = NULL;
   esp_err_t res = ESP_OK;
@@ -102,7 +103,6 @@ static esp_err_t inference_handler()
   {
     esp_camera_fb_return(fb);
     Serial.println("dl_matrix3du_alloc failed");
-    httpd_resp_send_500(req);
     return ESP_FAIL;
   }
 
@@ -122,7 +122,6 @@ static esp_err_t inference_handler()
   {
     dl_matrix3du_free(image_matrix);
     Serial.println("to rgb888 failed");
-    httpd_resp_send_500(req);
     return ESP_FAIL;
   }
 
@@ -130,8 +129,6 @@ static esp_err_t inference_handler()
   if (!ei_matrix)
   {
     esp_camera_fb_return(fb);
-    Serial.println("dl_matrix3du_alloc failed");
-    httpd_resp_send_500(req);
     return ESP_FAIL;
   }
 

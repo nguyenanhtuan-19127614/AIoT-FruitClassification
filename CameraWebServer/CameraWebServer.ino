@@ -76,7 +76,7 @@ void setup() {
   sensor_t * s = esp_camera_sensor_get();
   s->set_framesize(s, FRAMESIZE_240X240);
 }
-extern static esp_err_t inference_handler();
+extern esp_err_t inference_handler();
 void loop() {
   inference_handler();
   delay(1000);
